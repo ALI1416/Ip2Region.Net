@@ -26,7 +26,7 @@ jobs:
           dotnet-version: 6
 
       - name: Restore dependencies
-        run: dotnet restore Z.Phone2Region.Net
+        run: dotnet restore Z.Ip2Region.Net
 
       - name: Build
-        run: dotnet build --no-restore Z.Phone2Region.Net
+        run: dotnet build --no-restore Z.Ip2Region.Net
