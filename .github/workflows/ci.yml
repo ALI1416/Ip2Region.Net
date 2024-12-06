@@ -1,0 +1,32 @@
+name: DotNet CI
+
+on:
+  push:
+    branches: [ "master" ]
+    paths-ignore:
+      - "**.md"
+  pull_request:
+    branches: [ "master" ]
+    paths-ignore:
+      - "**.md"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 6
+
+      - name: Restore dependencies
+        run: dotnet restore Z.Phone2Region.Net
+
+      - name: Build
+        run: dotnet build --no-restore Z.Phone2Region.Net
