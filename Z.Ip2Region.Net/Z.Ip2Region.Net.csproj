@@ -5,9 +5,9 @@
     <PackageId>Z.Ip2Region.Net</PackageId>
     <Title>Ip Address To Region For .Net IP地址转区域.Net版</Title>
     <Description>本项目迁移自[ALI1416/ip2region](https://github.com/ALI1416/ip2region)，构建后`Z.Ip2Region.Net.dll`文件仅`9kb`</Description>
-    <Version>1.0.0</Version>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
+    <Version>1.0.1</Version>
+    <AssemblyVersion>1.0.1.1</AssemblyVersion>
+    <AssemblyFileVersion>1.0.1.1</AssemblyFileVersion>
     <Product>$(PackageId) ($(TargetFramework))</Product>
 
     <Authors>ali</Authors>

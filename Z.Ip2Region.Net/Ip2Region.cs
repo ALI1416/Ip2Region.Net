@@ -29,7 +29,7 @@ namespace Z.Ip2Region.Net
         /// </summary>
         private static int vector2AreaPtr;
         /// <summary>
-        /// 索引区指针
+        /// 一级索引区指针
         /// </summary>
         private static int vectorAreaPtr;
 
@@ -156,7 +156,7 @@ namespace Z.Ip2Region.Net
             int left = buffer.ReadInt32();
             int right = buffer.ReadInt32();
 
-            // 索引区
+            // 一级索引区
             if (left == right || left == right - 8)
             {
                 buffer.BaseStream.Position = left + 4;
@@ -165,15 +165,15 @@ namespace Z.Ip2Region.Net
             {
                 right -= 8;
                 // 二分查找
-                int ipSegments = (int)ip & 0xFFFF;
+                uint ipSegments = ip & 0xFFFF;
                 while (left <= right)
                 {
                     int mid = align((left + right) / 2);
                     // 查找是否匹配到
                     buffer.BaseStream.Position = mid;
-                    int startAndEnd = buffer.ReadInt32();
-                    int ipSegmentsStart = startAndEnd & 0xFFFF;
-                    int ipSegmentsEnd = startAndEnd >> 16;
+                    uint startAndEnd = buffer.ReadUInt32();
+                    uint ipSegmentsStart = startAndEnd & 0xFFFF;
+                    uint ipSegmentsEnd = startAndEnd >> 16;
                     if (ipSegments < ipSegmentsStart)
                     {
                         right = mid - 8;
@@ -191,7 +191,7 @@ namespace Z.Ip2Region.Net
 
             // 记录区
             buffer.BaseStream.Position = buffer.ReadInt32();
-            byte[] recordValue = buffer.ReadBytes(buffer.ReadByte() & 0xFF);
+            byte[] recordValue = buffer.ReadBytes(buffer.ReadByte());
             return new Region(Encoding.UTF8.GetString(recordValue));
         }
 
@@ -253,7 +253,7 @@ namespace Z.Ip2Region.Net
         /// <returns>IP地址</returns>
         public static string uint2ip(uint ip)
         {
-            return ((ip >> 24) & 0xFF) + "." + ((ip >> 16) & 0xFF) + "." + ((ip >> 8) & 0xFF) + "." + ((ip) & 0xFF);
+            return ((ip >> 24) & 0xFF) + "." + ((ip >> 16) & 0xFF) + "." + ((ip >> 8) & 0xFF) + "." + (ip & 0xFF);
         }
 
         /// <summary>
